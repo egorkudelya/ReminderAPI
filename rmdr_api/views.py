@@ -59,8 +59,8 @@ class NotificationViewset(APIView):
             current_id = context.id
             user_log = self._get_backlog_for_user(current_id)
             if user_log:
-                for user in user_log:
-                    notification = Notification.objects.create(body=user)
+                for user_data in user_log:
+                    notification = Notification.objects.create(body=user_data)
                     notification.save()
 
     def get(self, request, **kwargs):  # for demonstration
