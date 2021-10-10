@@ -45,7 +45,7 @@ class RemindCandidatesListView(APIView):
 
 class NotificationViewset(APIView):
 
-    def _get_backlog_for_user(self, context_id):
+    def __get_backlog_for_user(self, context_id):
         int_port = f'http://127.0.0.1:8000/contexts/{context_id}/'
         response = requests.get(int_port)
         if response.status_code == 200:
@@ -57,7 +57,7 @@ class NotificationViewset(APIView):
     def save_user_log(self):
         for context in ContextAlias.objects.all():
             current_id = context.id
-            user_log = self._get_backlog_for_user(current_id)
+            user_log = self.__get_backlog_for_user(current_id)
             if user_log:
                 for user_data in user_log:
                     notification = Notification.objects.create(body=user_data)
