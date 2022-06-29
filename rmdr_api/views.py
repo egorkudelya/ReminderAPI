@@ -5,7 +5,6 @@ from . import serializers
 from .models import ContextAlias, Reminder, Notification
 from rest_framework import status
 import requests
-import json
 
 
 class ReminderView(APIView):
@@ -50,7 +49,7 @@ class NotificationViewset(APIView):
         response = requests.get(int_port)
         if response.status_code == 200:
             data = response.json()
-            print(data)
+            # print(data)
             return [user_data for user_data in data if user_data['events'] is not None]
         return None
 
@@ -62,6 +61,7 @@ class NotificationViewset(APIView):
                 for user_data in user_log:
                     notification = Notification.objects.create(body=user_data)
                     notification.save()
+
 
     def get(self, request, **kwargs):  # for demonstration
         notifications = Notification.objects.all()
